@@ -1,7 +1,6 @@
 //const mongoose = require('mongoose');
 import clientPromise from '@/lib/mongodb';
 
-
 //////////////////////////////////////////////////////////Funcion GET para extraer todos los productos
 export async function GET(request) {
   try {
@@ -20,7 +19,6 @@ export async function GET(request) {
 ////////////////////////////////////////////////////////Funcion POST para agregar producto
 
 
-// Función POST para agregar un nuevo producto
 export async function POST(request) {
   try {
     const client = await clientPromise;
@@ -58,10 +56,7 @@ export async function POST(request) {
   }
 }
 
-
- 
 ////////////////////////////////////////////////////////Funcion PUT para actualizar un producto existente
-
 
 export async function PUT(request) {
   try {
@@ -76,11 +71,9 @@ const ObjectId = require('mongodb').ObjectId; // Importar ObjectId
 const _id = new ObjectId(id);
 
 
-
-
     // Leer los datos enviados en el cuerpo de la solicitud
     const body = await request.json();
-    const { Marca, Descripcion, Precio, imageUrl } = body;    ///_id, al principio de los parametros del body
+    const { Marca, Descripcion, Precio, imageUrl } = body; 
 
     // Validar que el ID esté presente
     if (!_id) {
@@ -103,7 +96,7 @@ const _id = new ObjectId(id);
       { $set: updateFields } // Campos a actualizar
     );
 
-    console.log("El producto actualizado: " + updateFields.json());
+    //console.log("El producto actualizado: " + updateFields.json());
 
     if (result.matchedCount === 0) {
       return new Response(JSON.stringify({ error: 'Product not found' }), {
@@ -125,3 +118,47 @@ const _id = new ObjectId(id);
 }
 
 
+//////////////////////////////////////////////////////////Funcion DELETE para eliminar un producto por su id
+
+
+export async function DELETE(request) {
+  try {
+    const client = await clientPromise;
+    const db = client.db('TiendaRopa');
+
+    // Extraer el ID de los parámetros de la solicitud
+    const { searchParams } = new URL(request.url);
+    const id = searchParams.get('id');
+
+    ////convertir a objectId el id
+    const ObjectId = require('mongodb').ObjectId; // Importar ObjectId
+    const _id = new ObjectId(id);
+
+    if (!id) {
+      return new Response(JSON.stringify({ error: 'ID is required' }), {
+        status: 400,
+        headers: { 'Content-Type': 'application/json' },
+      });
+    }
+
+    // Eliminar el producto de la base de datos
+    const result = await db.collection('products').deleteOne({ _id: _id });
+
+    if (result.deletedCount === 0) {
+      return new Response(JSON.stringify({ error: 'Product not found' }), {
+        status: 404,
+        headers: { 'Content-Type': 'application/json' },
+      });
+    }
+
+    return new Response(JSON.stringify({ message: 'Product deleted successfully' }), {
+      status: 200,
+      headers: { 'Content-Type': 'application/json' },
+    });
+  } catch (error) {
+    return new Response(JSON.stringify({ error: 'Failed to delete product' }), {
+      status: 500,
+      headers: { 'Content-Type': 'application/json' },
+    });
+  }
+}

@@ -1,8 +1,5 @@
 import clientPromise from '@/lib/mongodb';
-import { ObjectId } from 'mongodb';
 const { MongoClient } = require('mongodb');
-
-
 
 //////////////////////////////////////////////////////////Funcion GET para extraer un solo productos por ID
 
@@ -14,6 +11,7 @@ export async function GET(request) {
     // Extraer el ID de los parámetros de la solicitud
     const { searchParams } = new URL(request.url);
     const id = searchParams.get('id');
+    
     ////convertir a objectId el id
     const ObjectId = require('mongodb').ObjectId; // Importar ObjectId
     const _id = new ObjectId(id);

@@ -7,7 +7,7 @@ function Navbar(){
     return(
         <div className="bg-zinc-800 text-white h-24 flex items-center justify-between px-4 shadow-2xl fixed left-0 right-0">
             <div className="flex space-x-4 text-xl">
-                <a href="#"><GoPerson /></a>
+                <a href="/Products"><GoPerson /></a>
                 <a href="#"><IoSearch /></a>
             </div>
 

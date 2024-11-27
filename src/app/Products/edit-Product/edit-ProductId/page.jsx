@@ -1,7 +1,8 @@
 "use client";
 
-import { request } from 'http';
 import React, { useState, useEffect } from 'react';
+import { GrUpdate } from "react-icons/gr";
+
 
 
 export default function EditarProducto(){
@@ -83,65 +84,93 @@ const handleChange = (e) => {
     finally{
       window.location.href = "/Products/edit-Product";
     }
-    
-    
+       
 
   };
 
-
-
     return(
+      <>
+
+<br />
+<center>   <strong> <h2 className="text-2xl font-bold text-gray-900"> Editar Producto  <GrUpdate /></h2> </strong>  </center>
+<br />
+        <div style={{backgroundColor: 'lightblue', height: 420}}>
+            <br></br>
+            <br></br>
+        <form onSubmit={handleSubmit}>
+            <div style={{paddingLeft: 600}}>
+                <label htmlFor="Marca">Marca:</label>
+                <input
+                    type="text"
+                    id="Marca"
+                    name="Marca"
+                    value={producto.Marca || ''}
+                    onChange={handleChange}
+                    required
+                style={{paddingLeft: 0}}/>
+            </div>
+            <br></br>
+            <br></br>
+            <div style={{paddingLeft: 600}}>
+                <label htmlFor="Descripcion">Descripción:</label>
+                <input
+                    type="text"
+                    id="Descripcion"
+                    name="Descripcion"
+                    value={producto.Descripcion || ''}
+                    onChange={handleChange}
+                    required
+                />
+            </div>
+            <br></br>
+            <br></br>
+            <div style={{paddingLeft: 600}}>
+                <label htmlFor="Precio">Precio:</label>
+                <input
+                    type="text"
+                    id="Precio"
+                    name="Precio"
+                    value={producto.Precio || ''}
+                    onChange={handleChange}
+                    required
+                />
+            </div>
+            <br></br>
+            <br></br>
+            <div style={{paddingLeft: 600}}>
+                <label htmlFor="imageUrl">URL de la Imagen:</label>
+                <input
+                    type="text"
+                    id="imageUrl"
+                    name="imageUrl"
+                    value={producto.imageUrl || ''}
+                    onChange={handleChange}
+                    required
+                />
+            </div>
+            <br></br>
+            <br></br>
+        <center>    <button type="submit" style={{backgroundColor: "snow", borderRadius: 5, fontSize: 16, fontFamily: "monospace", }}>Guardar cambios</button>  </center>
+        </form>
+
+        </div>
+
+
+        <center>
+        {/* <div className="bg-white max-w-fit rounded-xl shadow-lg p-7 m-9" style={{top: 0}}>
+            <img src="/" alt="product image" className="h-96 w-72 object-cover rounded-xl" />
+
+            <div className="mt-8">
+                
+            </div>
+
+        </div> */}
+
+        </center>
+
         
-      <div>
-      <h1>Editar Producto</h1>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="Marca">Marca:</label>
-          <input
-            type="text"
-            id="Marca"
-            name="Marca"
-            value={producto.Marca || ''}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor="Descripcion">Descripción:</label>
-          <input
-          type='text'
-            id="Descripcion"
-            name="Descripcion"
-            value={producto.Descripcion || ''}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor="Precio">Precio:</label>
-          <input
-            type="text"
-            id="Precio"
-            name="Precio"
-            value={producto.Precio || ''}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor="imageUrl">URL de la Imagen:</label>
-          <input
-            type="text"
-            id="imageUrl"
-            name="imageUrl"
-            value={producto.imageUrl || ''}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <button type="submit">Guardar Cambios</button>
-      </form>
-    </div>
+        </>  
+      
 
 
 

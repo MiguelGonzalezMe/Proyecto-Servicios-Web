@@ -1,16 +1,16 @@
 "use client";
 
+import { Warning } from 'postcss';
 import React, { useState, useEffect } from 'react';
-//import { useNavigate } from 'react-router-dom'; // Asegúrate de usar React Router para la navegación
 import { RiLoader2Fill } from "react-icons/ri";
-import { RxUpdate } from "react-icons/rx";
+import { AiTwotoneDelete } from "react-icons/ai";
 
 
-const Editar = () => {
+
+export default function deleteProducto(){
     const [productos, setProductos] = useState([]); // Estado para almacenar los productos
     const [loading, setLoading] = useState(true); // Estado para manejar el cargando
     const [error, setError] = useState(null); // Estado para manejar errores
-    //const navigate = useNavigate(); // Hook para la navegación
 
     // Función para obtener los productos desde la API
     useEffect(() => {
@@ -33,12 +33,26 @@ const Editar = () => {
     }, []);
 
  ////////////// Función para manejar el clic en el botón Editar
-    const handleEditar = (id) => {
-    // navigate(`/Products/edit-Product/edit-ProductId/${id}`); // Redirige a la página de edición con el ID del producto
-    var idd = "/Products/edit-Product/edit-ProductId/?id=" + id;        
+    const handleEliminar = async (id) => {
+
+    try {
+        const response = await fetch(`/api/products/?id=${id}`, {
+          method: 'DELETE',
+        });
+    
+        if (!response.ok) {
+          throw new Error('Error al eliminar el producto');
+        }
+    
+        alert("¡Producto eliminado!");
+      } catch (error) {
+        console.error('Error:', error.message);
+      }
+
+
+    var idd = "/Products/delete-Product";        
     window.location.href = idd;
 
-    //alert("El Id del producto selecccionado es: " + "\n " + id);
     };
 //////////////////
     if (loading) return <center><br /> <p>Cargando productos <br /> <RiLoader2Fill />  </p>  </center>;
@@ -47,7 +61,7 @@ const Editar = () => {
     return (
     <center>
         <div>
-         <br />  <strong>  <h1 style={{backgroundColor: 'lightgray'}}>Lista de Productos <RxUpdate />
+         <br />  <strong>  <h1 style={{backgroundColor: 'lightgray'}}>Lista de Productos <AiTwotoneDelete />
          </h1> </strong><br />
             {productos.length === 0 ? (
                 <p>No hay productos disponibles.</p>
@@ -62,10 +76,9 @@ const Editar = () => {
                             <p><strong>Descripción:</strong> {producto.Descripcion}</p>
                             <p><strong>Precio:</strong> ${producto.Precio}</p>
                             <p><strong>Imagen URL:</strong> {producto.imageUrl}</p>
-                            <button onClick={() => handleEditar(producto._id)} style={{backgroundColor: "lightyellow", borderRadius: 5, fontSize: 16}}>
-                            
-
-                                Editar
+                            <button onClick={() => handleEliminar(producto._id)} style={{backgroundColor: "tomato", borderRadius: 5, fontSize: 16}}>
+                    
+                                Eliminar                                
                             </button>   
                     </div>
                         </li>
@@ -79,4 +92,3 @@ const Editar = () => {
     );
 };
 
-export default Editar;

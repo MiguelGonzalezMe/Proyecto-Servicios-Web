@@ -2,6 +2,8 @@
 "use client";
 
 import React, { useState } from 'react';
+import { MdOutlineAddCircleOutline } from "react-icons/md";
+
 
 const AddP = () => {
     // Definir el estado inicial para los campos del formulario
@@ -47,7 +49,10 @@ const AddP = () => {
 
     return (
         <>
-        <div style={{backgroundColor: 'lightblue'}}>
+<br />
+<center>   <strong> <h2 className="text-2xl font-bold text-gray-900"> Nuevo Producto <MdOutlineAddCircleOutline /> </h2> </strong>  </center>
+<br />
+        <div style={{backgroundColor: 'lightblue', height: 420}}>
             <br></br>
             <br></br>
         <form onSubmit={handleSubmit}>
@@ -103,7 +108,7 @@ const AddP = () => {
             </div>
             <br></br>
             <br></br>
-        <center>    <button type="submit">Agregar Producto</button>  </center>
+        <center>    <button type="submit" style={{backgroundColor: "snow", borderRadius: 5, fontSize: 16, fontFamily: "monospace", }}>Agregar Producto</button>  </center>
         </form>
 
         </div>
