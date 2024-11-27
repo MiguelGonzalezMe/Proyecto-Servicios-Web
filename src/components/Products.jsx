@@ -23,13 +23,19 @@ function Products() {
     fetchProducts();    
   }, []);
 
+  ////////////// Función para manejar el clic en div de cada producto
+  const desc = (id) => {
+    var idd = "/shopping/description/?id=" + id;       
+    window.location.href = idd;
+    };
+
   return (
     <div className="bg-gray-100 p-10 m-10">
       <div className="max-w.fit mx-auto grid gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
         {products && products.length > 0 ? (
           products.map((product, index) => (
 
-            <div key={index} className="bg-white rounded-xl shadow-lg p-5">
+            <div key={index} className="bg-white rounded-xl shadow-lg p-5" onClick={() => desc(product._id)}>
               
               <img              
                 src={`/${product.imageUrl}`} 

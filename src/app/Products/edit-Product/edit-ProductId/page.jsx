@@ -11,8 +11,6 @@ export default function EditarProducto(){
     const id = urlParams.get('id');
     
 
-    
-
 ////////traer los datos del producto con el id seleccionado por medio de la api para mostrarlos en el formulario
 
 useEffect(() => {
